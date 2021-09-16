@@ -24,10 +24,10 @@ public class CommandLine {
 			} catch(NumberFormatException e) {
 				sb.append(s);
 			}
+
 		}
 		System.out.println("Numbers add up to: "+sum);
 		System.out.println("Non-numeric values are: " +sb);
-		
 		/*Test functionality of Shapes*/
 		/*Triangle triangle = new Triangle(4, 5);
 		System.out.println(triangle.calculateArea());
