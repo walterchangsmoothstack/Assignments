@@ -31,10 +31,15 @@ class Television {
 		/* Multiple people can change the channel at once, the Television
 		 * should not flip through all channels until the last one, but simply
 		 * immediately switch to a channel */
-		public void changeChannel(Integer channel) {
+		public void setChannel(Integer channel) {
 				this.channel = channel;
 			
 		}
+		
+		public Integer getChannel() {
+			return this.channel;
+		
+	}
 }
 
 
