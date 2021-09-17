@@ -24,6 +24,7 @@ class Consumer implements Runnable {
 			
 			System.out.println("Get number: " + buf.consume());
 			buf.count.decrementAndGet();
+		
 
 		}
 	}
@@ -39,7 +40,7 @@ class Producer implements Runnable {
 	}
 
 	public void run() {
-		/* Continuously produce items (int ranging from 0-99) and adding them
+		/* Continuously produce items (random int ranging from 0-99) and adding them
 		 * to the buffer array*/
 		while (true) {
 
@@ -63,7 +64,7 @@ class Buffer {
 
 	/* if the count is greater than or equal to 9, wait until it is decremented by consume */
 	public void produce(int num) {
-		while (count.get() >= 9) {
+		while (count.get() > 9) {
 			try {
 				wait();
 
@@ -84,7 +85,6 @@ class Buffer {
 
 			}
 		}
-		buffer[count.get()] = 0;
 		return buffer[count.get() - 1];
 
 	}
