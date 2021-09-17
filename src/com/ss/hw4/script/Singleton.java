@@ -73,7 +73,6 @@ public class Singleton {
 		});
 		t1.start();
 		t2.start();
-
 	}
 
 }
