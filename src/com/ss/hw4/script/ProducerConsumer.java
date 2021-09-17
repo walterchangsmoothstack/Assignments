@@ -1,6 +1,7 @@
 package com.ss.hw4.script;
 
 import java.util.Arrays;
+
 import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author Walter Chang
@@ -23,7 +24,7 @@ class Consumer implements Runnable {
 		while (true) {
 			
 			System.out.println("Get number: " + buf.consume());
-			buf.count.decrementAndGet();
+			//buf.count.decrementAndGet();
 		
 
 		}
@@ -47,7 +48,7 @@ class Producer implements Runnable {
 			int x = (int) Math.floor(Math.random() * 100);
 			System.out.println("Produce Number: " + x);
 			buf.produce(x);
-			buf.count.incrementAndGet();
+			//buf.count.incrementAndGet();
 
 
 		}
@@ -72,7 +73,11 @@ class Buffer {
 
 			}
 		}
+		synchronized (count) {
 		buffer[count.get()] = num;
+		count.incrementAndGet();
+		System.out.println(Arrays.toString(buffer));
+		}
 
 	}
 	/* if count is less than or equal to 0, wait until it is incremented by produce */
@@ -85,8 +90,13 @@ class Buffer {
 
 			}
 		}
-		return buffer[count.get() - 1];
-
+		synchronized(count) {
+		int result = buffer[count.get()-1];
+		buffer[count.get()-1] = 0;
+		count.decrementAndGet();
+		return result;
+		}
+		
 	}
 
 }
