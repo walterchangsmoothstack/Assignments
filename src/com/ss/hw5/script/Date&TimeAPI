@@ -1,0 +1,48 @@
+1.	 Which class would you use to store your birthday in years, months, days, seconds, and nanoseconds?
+		
+		I would use LocalDateTime() which gives you the option of inputting a Date and a Time
+
+2.	 Given a random date, how would you find the date of the previous Thursday?
+
+		>Create random date and store it as a LocalDate() object
+		>Call getDayOfWeek() on object which returns a DayOfWeek() object
+		>Call getValue() to get the integer value of the day
+		>Add 3 to value then mod by 7 to get how many days the previous Thursday was. (Add 7 if the value is 0)
+		>Call LocalDate.minusDays(value) to get the date of the previous Thursday
+
+3.	 What is the difference between a ZoneId and a ZoneOffset?
+
+		A ZoneId gives the localtime of a specified region. ZoneOffset an object that keeps track of 
+		a time difference.
+			>ZoneOffset.from(ZonedDateTime.now(z)); //gives the time difference to UTC
+
+4.	 How would you convert an Instant to a ZonedDateTime? How would you convert a ZonedDateTime to an Instant?
+
+		>To convert an Instant to a ZonedDateTime, create a ZoneId with the desired timezone. Create an Instant
+		object. Then call ZonedDateTime.ofInstant(instant, zoneId) to return a ZonedDateTime corresponding with
+		the Instant.
+		>To convert a ZonedDateTime to an Instant. Create a ZonedDateTime object with the ZoneId of your choice.
+		Then call zonedatetime.toInstant(); 
+    
+5.	 Write an example that, for a given year, reports the length of each month within that year.
+
+		Using the LocalDate() object of the date. Write a for loop which iterates through each month, and
+		use the lengthOfMonth() function:
+		> for (int m = 1; m <= 12; m++) {
+	            date = date.withMonth(m);
+	            System.out.println(date.withMonth(m).lengthOfMonth());
+	        }
+
+6.	 Write an example that, for a given month of the current year, lists all of the Mondays in that month.
+		
+		Using the LocalDate() object of the date. Write a for loop which iterates through each day of the
+		month and use the getDayOfWeek() function to see if it is Monday:
+		>for(int d = 1; d<=current.lengthOfMonth(); d++) {
+	        	if(current.withDayOfMonth(d).getDayOfWeek().getValue() == 1) count++;
+	        }
+
+7.	 Write an example that tests whether a given date occurs on Friday the 13th.
+
+		> if(date.getDayOfMonth() == 13 && date.getDayOfWeek().getValue() ==5 ) //then it is Friday the 13th
+
+		
