@@ -3,16 +3,19 @@ package com.ss.hw4.script;
 import java.util.Arrays;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
 /**
- * @author Walter Chang
- * Creates a 10 int buffer that allows a producer and consumer to add and get
- * ints within shared memory
+ * @author Walter Chang Creates a 10 int buffer that allows a producer and
+ *         consumer to add and get ints within shared memory
  *
  */
 class Consumer implements Runnable {
 	Buffer buf;
-	/* Starts a thread automatically in the constructor. Takes in a Buffer item which will
-	 * be the same one used by the consumer */
+
+	/*
+	 * Starts a thread automatically in the constructor. Takes in a Buffer item
+	 * which will be the same one used by the consumer
+	 */
 	public Consumer(Buffer buf) {
 		this.buf = buf;
 		Thread t = new Thread(this);
@@ -20,12 +23,10 @@ class Consumer implements Runnable {
 	}
 
 	public void run() {
-		/* Continue to consume items by calling the consume function*/
+		/* Continue to consume items by calling the consume function */
 		while (true) {
-			
+
 			System.out.println("Get number: " + buf.consume());
-			//buf.count.decrementAndGet();
-		
 
 		}
 	}
@@ -33,7 +34,8 @@ class Consumer implements Runnable {
 
 class Producer implements Runnable {
 	Buffer buf;
-	/* Same constructor format, starts thread once called*/
+
+	/* Same constructor format, starts thread once called */
 	public Producer(Buffer buf) {
 		this.buf = buf;
 		Thread t = new Thread(this);
@@ -41,15 +43,15 @@ class Producer implements Runnable {
 	}
 
 	public void run() {
-		/* Continuously produce items (random int ranging from 0-99) and adding them
-		 * to the buffer array*/
+		/*
+		 * Continuously produce items (random int ranging from 0-99) and adding them to
+		 * the buffer array
+		 */
 		while (true) {
 
 			int x = (int) Math.floor(Math.random() * 100);
 			System.out.println("Produce Number: " + x);
 			buf.produce(x);
-			//buf.count.incrementAndGet();
-
 
 		}
 	}
@@ -62,8 +64,10 @@ class Buffer {
 	AtomicInteger count = new AtomicInteger(0);
 	int[] buffer = new int[10];
 
-
-	/* if the count is greater than or equal to 9, wait until it is decremented by consume */
+	/*
+	 * if the count is greater than or equal to 9, wait until it is decremented by
+	 * consume
+	 */
 	public void produce(int num) {
 		while (count.get() > 9) {
 			try {
@@ -74,13 +78,16 @@ class Buffer {
 			}
 		}
 		synchronized (count) {
-		buffer[count.get()] = num;
-		count.incrementAndGet();
-		System.out.println(Arrays.toString(buffer));
+			buffer[count.get()] = num;
+			count.incrementAndGet();
+			System.out.println(Arrays.toString(buffer));
 		}
 
 	}
-	/* if count is less than or equal to 0, wait until it is incremented by produce */
+
+	/*
+	 * if count is less than or equal to 0, wait until it is incremented by produce
+	 */
 	public int consume() {
 		while (count.get() <= 0) {
 			try {
@@ -90,13 +97,13 @@ class Buffer {
 
 			}
 		}
-		synchronized(count) {
-		int result = buffer[count.get()-1];
-		buffer[count.get()-1] = 0;
-		count.decrementAndGet();
-		return result;
+		synchronized (count) {
+			int result = buffer[count.get() - 1];
+			buffer[count.get() - 1] = 0;
+			count.decrementAndGet();
+			return result;
 		}
-		
+
 	}
 
 }

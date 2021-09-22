@@ -16,7 +16,7 @@ public class Lambdas {
 		String perform(Integer i);
 	}
 
-	public static PerformOperation isOdd() {
+	public PerformOperation isOdd() {
 		/* Check if mod by 2 is 1 or 0 */
 		return (i) -> (i == null) ? "NULL" : (Math.abs(i % 2) == 1) ? "ODD" : "EVEN";
 	};
@@ -26,7 +26,7 @@ public class Lambdas {
 	 * by the number, then it is composite. No need to loop past square root of
 	 * number because the maximum quotient will be the square root of number
 	 */
-	public static PerformOperation isPrime() {
+	public PerformOperation isPrime() {
 		/*
 		 * According to Google all negative numbers and zero in some definitions are
 		 * considered composite
@@ -38,7 +38,7 @@ public class Lambdas {
 								: "PRIME";
 	};
 
-	public static PerformOperation isPalindrome() {
+	public PerformOperation isPalindrome() {
 		return (num) -> {
 			if (num == null)
 				return "NO";

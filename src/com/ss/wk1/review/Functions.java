@@ -73,7 +73,7 @@ public class Functions {
 			String s = list.get(i);
 			int x = s.indexOf("x");
 			/* Use indexOf to make find the next instance of X. Sacrifices 
-			 * speed for the use of Strings in permanent memory space.*/
+			 * use of Strings in permanent memory space for*/
 			while (s.indexOf("x") != -1) {
 				s = s.substring(0, x) + s.substring(x + 1, s.length());
 				x = s.indexOf("x");
